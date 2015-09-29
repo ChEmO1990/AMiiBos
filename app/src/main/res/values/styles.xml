@@ -34,5 +34,4 @@
         <item name="android:colorBackground">@color/white</item>
         <item name="android:textColor">@color/color_primary</item>
     </style>
-
 </resources>
