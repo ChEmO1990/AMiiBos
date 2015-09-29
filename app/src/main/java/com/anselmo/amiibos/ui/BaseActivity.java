@@ -1,8 +1,10 @@
 package com.anselmo.amiibos.ui;
 
+import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,7 +13,7 @@ import com.anselmo.amiibos.R;
 /**
  * Created by Anselmo Hernandez on 9/28/15.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     @Override
@@ -44,12 +46,26 @@ public class BaseActivity extends AppCompatActivity {
 
     protected Toolbar getToolbar() {
         if (mToolbar == null) {
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
             if (mToolbar != null) {
                 setSupportActionBar(mToolbar);
                 Log.i("TOOLBAR_STATUS", "Se inicializo correctamente el Toolbar");
             }
         }
         return mToolbar;
+    }
+
+    protected int getActionBarSize() {
+        TypedValue typedValue = new TypedValue();
+        int[] textSizeAttr = new int[]{R.attr.actionBarSize};
+        int indexOfAttrTextSize = 0;
+        TypedArray a = obtainStyledAttributes(typedValue.data, textSizeAttr);
+        int actionBarSize = a.getDimensionPixelSize(indexOfAttrTextSize, -1);
+        a.recycle();
+        return actionBarSize;
+    }
+
+    protected int getScreenHeight() {
+        return findViewById(android.R.id.content).getHeight();
     }
 }

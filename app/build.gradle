@@ -40,4 +40,6 @@ dependencies {
 
     //Android library to observe scroll events on scrollable views
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+
+    compile 'com.nineoldandroids:library:2.4.0'
 }
