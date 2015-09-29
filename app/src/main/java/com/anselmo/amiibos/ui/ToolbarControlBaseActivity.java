@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -86,7 +86,7 @@ public abstract class ToolbarControlBaseActivity<S extends Scrollable> extends B
                 float translationY = (float) animation.getAnimatedValue();
                 ViewHelper.setTranslationY(mToolbar, translationY);
                 ViewHelper.setTranslationY((View) mScrollable, translationY);
-                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ((View) mScrollable).getLayoutParams();
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) ((View) mScrollable).getLayoutParams();
                 lp.height = (int) -translationY + getScreenHeight() - lp.topMargin;
                 ((View) mScrollable).requestLayout();
             }

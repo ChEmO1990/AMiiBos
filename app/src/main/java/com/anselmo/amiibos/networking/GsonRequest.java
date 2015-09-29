@@ -1,4 +1,4 @@
-package com.anselmo.amiibos.models;
+package com.anselmo.amiibos.networking;
 
 import android.util.Log;
 

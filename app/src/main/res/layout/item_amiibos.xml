@@ -30,7 +30,7 @@
             android:text="Medium Text"
             android:id="@+id/item_miibos_title"
             android:layout_alignParentTop="true"
-            android:lines="2"
+            android:maxLines="2"
             android:layout_toRightOf="@+id/item_miibos_image"
             android:layout_toEndOf="@+id/item_miibos_image" />
 
@@ -40,6 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:id="@+id/item_miibos_serie"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/item_miibos_title"
             android:layout_toRightOf="@+id/item_miibos_image"
             android:layout_toEndOf="@+id/item_miibos_image" />
@@ -53,10 +54,10 @@
             android:layout_gravity="right"
             android:layout_alignBottom="@+id/item_miibos_image"
             android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_alignParentEnd="true" />
-
-
     </RelativeLayout>
 
 </RelativeLayout>

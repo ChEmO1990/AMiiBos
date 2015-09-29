@@ -1,6 +1,8 @@
 package com.anselmo.amiibos.ui;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -38,6 +40,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ChEmO1990/AMiiBos"));
+            startActivity(browserIntent);
             return true;
         }
 

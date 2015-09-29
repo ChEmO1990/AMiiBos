@@ -10,8 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anselmo.amiibos.R;
-import com.anselmo.amiibos.models.ItemAmiiBos;
+import com.anselmo.amiibos.models.AmiiBosModel;
 import com.bumptech.glide.Glide;
+import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ import java.util.List;
  */
 public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHolder> {
     private Context context;
-    private List<ItemAmiiBos> mAmiiBos;
+    private List<AmiiBosModel.Result> mAmiiBos;
 
-    public AMiiBosAdapter(Context context, List<ItemAmiiBos> mAmiiBos) {
+    public AMiiBosAdapter(Context context, List<AmiiBosModel.Result> mAmiiBos) {
         this.context = context;
         this.mAmiiBos = mAmiiBos;
     }
@@ -44,18 +45,26 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
     @Override
     public void onBindViewHolder(AMiiBosAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        ItemAmiiBos amiibos = mAmiiBos.get(position);
+        AmiiBosModel.Result amiibos = mAmiiBos.get(position);
 
         Glide.with(context)
-                .load(amiibos.getUrlImage())
+                .load(amiibos.getImg())
                 .centerCrop()
-                //.placeholder(R.drawable.loading_spinner)
+                .placeholder(R.mipmap.ic_launcher)
                 .crossFade()
                 .into(viewHolder.image);
 
         viewHolder.title.setText( amiibos.getTitle() );
-        viewHolder.serie.setText( amiibos.getSerie() );
-        viewHolder.store.setText( amiibos.getStore() );
+        viewHolder.serie.setText( amiibos.getSeries());
+
+        if( amiibos.getStores().isEmpty() ) {
+            viewHolder.store.setText( "AMiibo No disponible" );
+        } else {
+            if( amiibos.getStores().size() == 1 ) {
+                viewHolder.store.setText( "Disponible en: " + "(" + amiibos.getStores().size() + ")" + " tienda" );
+            }
+            viewHolder.store.setText( "Disponible en: " + "(" + amiibos.getStores().size() + ")" + " tiendas" );
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -73,6 +82,10 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
             serie = (TextView) itemView.findViewById(R.id.item_miibos_serie);
             store = (TextView) itemView.findViewById(R.id.item_miibos_stores);
 
+            title.setTypeface( EasyFonts.robotoBold(context) );
+            serie.setTypeface( EasyFonts.robotoLight(context) );
+            store.setTypeface( EasyFonts.robotoThin(context) );
+
             // Attach a click listener to the entire row view
             itemView.setOnClickListener(this);
         }
@@ -81,9 +94,9 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
         @Override
         public void onClick(View view) {
             int position = getLayoutPosition(); // gets item position
-            ItemAmiiBos user = mAmiiBos.get(position);
+            AmiiBosModel.Result amiibos = mAmiiBos.get(position);
             // We can access the data within the views
-            Toast.makeText(context, user.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, amiibos.getTitle(), Toast.LENGTH_SHORT).show();
         }
 
     }
