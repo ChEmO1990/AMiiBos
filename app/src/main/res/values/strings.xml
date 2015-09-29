@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">GitHub</string>
+
+    <string name="message_empyt_stores">Lo sentimos, por el momento este Amiibo no esta disponible en ninguna tienda.</string>
+    <string name="not_available_amiibo">No disponible</string>
+    <string name="available_amiibo">Disponible en:</string>
+    <string name="store">tienda</string>
+    <string name="stores">tiendas</string>
 </resources>

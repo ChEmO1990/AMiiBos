@@ -8,7 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by naranya on 9/28/15.
+ * Created by Anselmo Hernandez on 9/28/15.
  */
 public class AMiiBos extends Application {
     public static final String TAG = AMiiBos.class.getSimpleName();
@@ -51,5 +51,4 @@ public class AMiiBos extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
-
 }

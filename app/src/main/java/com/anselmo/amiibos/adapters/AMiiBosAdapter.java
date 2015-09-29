@@ -1,17 +1,20 @@
 package com.anselmo.amiibos.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anselmo.amiibos.R;
 import com.anselmo.amiibos.models.AmiiBosModel;
+import com.anselmo.amiibos.ui.StoreDetailActivity;
 import com.bumptech.glide.Glide;
+import com.github.mrengineer13.snackbar.SnackBar;
 import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.List;
@@ -20,10 +23,10 @@ import java.util.List;
  * Created by naranya on 9/28/15.
  */
 public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHolder> {
-    private Context context;
+    private Activity context;
     private List<AmiiBosModel.Result> mAmiiBos;
 
-    public AMiiBosAdapter(Context context, List<AmiiBosModel.Result> mAmiiBos) {
+    public AMiiBosAdapter(Activity context, List<AmiiBosModel.Result> mAmiiBos) {
         this.context = context;
         this.mAmiiBos = mAmiiBos;
     }
@@ -58,12 +61,13 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
         viewHolder.serie.setText( amiibos.getSeries());
 
         if( amiibos.getStores().isEmpty() ) {
-            viewHolder.store.setText( "AMiibo No disponible" );
+            viewHolder.store.setText( context.getString(R.string.not_available_amiibo) );
         } else {
             if( amiibos.getStores().size() == 1 ) {
-                viewHolder.store.setText( "Disponible en: " + "(" + amiibos.getStores().size() + ")" + " tienda" );
+                viewHolder.store.setText( context.getString(R.string.available_amiibo) + " (" + amiibos.getStores().size() + ")" + " tienda" );
+            } else {
+                viewHolder.store.setText( context.getString(R.string.available_amiibo) + " (" + amiibos.getStores().size() + ")" + " tiendas" );
             }
-            viewHolder.store.setText( "Disponible en: " + "(" + amiibos.getStores().size() + ")" + " tiendas" );
         }
     }
 
@@ -82,9 +86,9 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
             serie = (TextView) itemView.findViewById(R.id.item_miibos_serie);
             store = (TextView) itemView.findViewById(R.id.item_miibos_stores);
 
-            title.setTypeface( EasyFonts.robotoBold(context) );
-            serie.setTypeface( EasyFonts.robotoLight(context) );
-            store.setTypeface( EasyFonts.robotoThin(context) );
+            title.setTypeface(EasyFonts.robotoBold(context));
+            serie.setTypeface(EasyFonts.robotoLight(context));
+            store.setTypeface(EasyFonts.robotoThin(context));
 
             // Attach a click listener to the entire row view
             itemView.setOnClickListener(this);
@@ -93,12 +97,22 @@ public class AMiiBosAdapter extends RecyclerView.Adapter<AMiiBosAdapter.ViewHold
         // Handles the row being being clicked
         @Override
         public void onClick(View view) {
-            int position = getLayoutPosition(); // gets item position
-            AmiiBosModel.Result amiibos = mAmiiBos.get(position);
-            // We can access the data within the views
-            Toast.makeText(context, amiibos.getTitle(), Toast.LENGTH_SHORT).show();
-        }
+            int position = getLayoutPosition();
 
+            if (mAmiiBos.get(position).getStores().isEmpty()) {
+                new SnackBar.Builder(context)
+                        .withMessage(context.getString(R.string.message_empyt_stores))
+                        .withTypeFace(EasyFonts.robotoLight(context))
+                        .withTextColorId(R.color.color_primary)
+                        .withStyle(SnackBar.Style.DEFAULT)
+                        .withDuration(SnackBar.MED_SNACK)
+                        .show();
+            } else {
+                Intent i = new Intent(context, StoreDetailActivity.class);
+                i.putExtra("arrayPosition", position);
+                context.startActivity(i);
+            }
+        }
     }
 
     // Return the total count of items

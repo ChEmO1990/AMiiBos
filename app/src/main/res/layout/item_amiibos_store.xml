@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:clickable="true"
@@ -16,7 +17,7 @@
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:id="@+id/item_miibos_image"
+            android:id="@+id/item_store_image"
             android:src="@mipmap/ic_launcher"
             android:layout_marginRight="5dp"
             android:layout_alignParentTop="true"
@@ -28,35 +29,44 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/item_miibos_title"
+            android:id="@+id/item_store_title_miibos"
             android:layout_alignParentTop="true"
             android:maxLines="2"
-            android:layout_toRightOf="@+id/item_miibos_image"
-            android:layout_toEndOf="@+id/item_miibos_image" />
+            android:layout_toRightOf="@+id/item_store_image"
+            android:layout_toEndOf="@+id/item_store_image" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/item_miibos_serie"
+            android:id="@+id/item_store_title"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:maxLines="2"
-            android:layout_below="@+id/item_miibos_title"
-            android:layout_toRightOf="@+id/item_miibos_image"
-            android:layout_toEndOf="@+id/item_miibos_image" />
+            android:layout_below="@+id/item_store_title_miibos"
+            android:layout_toRightOf="@+id/item_store_image"
+            android:layout_toEndOf="@+id/item_store_image" />
 
-        <TextView
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/item_miibos_stores"
-            android:layout_gravity="right"
-            android:layout_alignBottom="@+id/item_miibos_image"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            fancy:fb_borderColor="@color/color_primary_dark"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="@color/color_primary"
+            fancy:fb_focusColor="@color/color_primary_dark"
+            fancy:fb_iconPosition="left"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="Ir a la tienda"
+            fancy:fb_textColor="#FFFFFF"
+            android:layout_gravity="right|bottom"
+            android:layout_alignBottom="@+id/item_store_image"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="3dp"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 

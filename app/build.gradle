@@ -44,5 +44,11 @@ dependencies {
     //Easy Fonts
     compile 'com.vstechlab.easyfonts:easyfonts:1.0.0'
 
+    //Fancy Buttons Android
+    compile 'com.github.medyo:fancybuttons:1.5@aar'
+
+    //SnackBar
+    compile 'com.github.mrengineer13:snackbar:1.2.0'
+
     compile 'com.nineoldandroids:library:2.4.0'
 }
