@@ -5,11 +5,35 @@ android:layout_height="match_parent">
     <include layout="@layout/toolbar_actionbar_with_headerbar"
     android:id="@+id/toolbar_actionbar" />
 
+
     <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
-    android:id="@+id/rvAmiibos"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize" />
+        android:id="@+id/rvAmiibos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        />
+
+    <com.vlonjatg.progressactivity.ProgressActivity
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        progressActivity:progressLoadingStateBackgroundColor="#FFFFFF"
+        progressActivity:progressEmptyStateBackgroundColor="#fbc02d"
+        progressActivity:progressEmptyStateContentTextColor="#FFFFFF"
+        progressActivity:progressEmptyStateTitleTextColor="#FFFFFF"
+        progressActivity:progressErrorStateBackgroundColor="@color/white"
+        progressActivity:progressErrorStateButtonTextColor="@color/color_primary"
+        progressActivity:progressErrorStateContentTextColor="@color/color_primary"
+        progressActivity:progressErrorStateTitleTextColor="@color/color_primary">
+
+    </com.vlonjatg.progressactivity.ProgressActivity>
+
+
+
+
 </FrameLayout>
 
 

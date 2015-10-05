@@ -50,5 +50,8 @@ dependencies {
     //SnackBar
     compile 'com.github.mrengineer13:snackbar:1.2.0'
 
+    //Progressbar Activity
+    compile 'com.vlonjatg.android:progress-activity:1.1.1'
+
     compile 'com.nineoldandroids:library:2.4.0'
 }
