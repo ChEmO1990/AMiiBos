@@ -9,4 +9,13 @@
     <string name="available_amiibo">Disponible en:</string>
     <string name="store">tienda</string>
     <string name="stores">tiendas</string>
+
+    <string name="no_api">API no disponible</string>
+    <string name="message_no_api">Lo sentimos mucho, por el momento nuestra API no se encuentra disponible.</string>
+
+    <string name="no_connection">Conexión no disponible</string>
+    <string name="message_no_connection">No hay conexión a internet disponible. Inténtelo de nuevo, por favor.</string>
+
+    <string name="try_again">Reintentar</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.anselmo.amiibos.ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -11,32 +12,28 @@ import com.anselmo.amiibos.R;
 import com.anselmo.amiibos.adapters.AMiiBosAdapter;
 import com.anselmo.amiibos.models.AmiiBosModel;
 import com.anselmo.amiibos.models.DividerItemDecoration;
-import com.anselmo.amiibos.models.DummyData;
 import com.anselmo.amiibos.networking.GsonRequest;
 import com.anselmo.amiibos.utils.EndPoints;
+import com.anselmo.amiibos.utils.NetworkUtil;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.google.gson.Gson;
+import com.vlonjatg.progressactivity.ProgressActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends ToolbarControlBaseActivity<ObservableRecyclerView>  {
+public class MainActivity extends ToolbarControlBaseActivity<ObservableRecyclerView> {
     private ObservableRecyclerView recyclerView;
     private ArrayList<AmiiBosModel.Result> items;
     private AMiiBosAdapter adapter;
+
+    ProgressActivity progressActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GsonRequest<AmiiBosModel> request = new GsonRequest<>(Request.Method.GET,
-                                                              EndPoints.BASE_URL,
-                                                              AmiiBosModel.class,
-                                                              successListenerMiibos(),
-                                                              createErrorListener(),
-                                                              null,
-                                                              Request.Priority.HIGH);
+        progressActivity = (ProgressActivity) findViewById(R.id.progress);
 
-        AMiiBos.getInstance().addToRequestQueue( request );
+        doRequestAmiibos();
     }
 
     @Override
@@ -63,8 +60,9 @@ public class MainActivity extends ToolbarControlBaseActivity<ObservableRecyclerV
         return new Response.Listener<AmiiBosModel>() {
             @Override
             public void onResponse(AmiiBosModel response) {
-                items.addAll( response.getResult() );
+                items.addAll(response.getResult());
                 adapter.notifyDataSetChanged();
+                progressActivity.showContent();
             }
         };
     }
@@ -86,11 +84,41 @@ public class MainActivity extends ToolbarControlBaseActivity<ObservableRecyclerV
                  */
 
                 //Get dummy model
-                AmiiBosModel modelDummy = new Gson().fromJson(DummyData.AMIIBOS_JSON, AmiiBosModel.class);
+                //AmiiBosModel modelDummy = new Gson().fromJson(DummyData.AMIIBOS_JSON, AmiiBosModel.class);
 
-                items.addAll( modelDummy.getResult() );
-                adapter.notifyDataSetChanged();
+                //items.addAll( modelDummy.getResult() );
+                //adapter.notifyDataSetChanged();
+
+                progressActivity.showError(getResources().getDrawable(R.mipmap.error), getString(R.string.no_api),
+                        getString(R.string.message_no_api),
+                        getString(R.string.try_again), errorClickListener);
             }
         };
+    }
+
+    private View.OnClickListener errorClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            doRequestAmiibos();
+        }
+    };
+
+    private void doRequestAmiibos() {
+        progressActivity.showLoading();
+
+        if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.TYPE_NOT_CONNECTED) {
+            progressActivity.showError(getResources().getDrawable(R.mipmap.error), getString(R.string.no_connection),
+                    getString(R.string.message_no_connection),
+                    getString(R.string.try_again), errorClickListener);
+        } else {
+            GsonRequest<AmiiBosModel> request = new GsonRequest<>(Request.Method.GET,
+                    EndPoints.BASE_URL,
+                    AmiiBosModel.class,
+                    successListenerMiibos(),
+                    createErrorListener(),
+                    null,
+                    Request.Priority.IMMEDIATE);
+            AMiiBos.getInstance().addToRequestQueue(request);
+        }
     }
 }
